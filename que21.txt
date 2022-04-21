@@ -1,0 +1,94 @@
+package doselectque;
+
+public class Car {
+	int carId;
+	int speed;
+	
+public Car(int carId,int speed){
+	    this.carId = carId;
+	    this.speed = speed;
+	}
+public int getCarid() { return carId; }
+public int getSpeed() { return speed; }
+}
+
+package doselectque;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class CarRacing {
+	Scanner sc = new Scanner(System.in);
+	int n = 2;
+	ArrayList<Car> cars = new ArrayList<>(n);
+
+	public void setArray( ArrayList<Car> c) {
+		this.cars = c;
+	}
+
+	public int trackCount;
+	
+	public CarRacing(int trackCount){  this.trackCount=trackCount; }
+	
+	
+	public String carEntry(Car car){
+                 //System.out.println(cars.get(0).getCarid());
+		if(trackCount <= cars.size()){
+		      return "No Space";}
+		else {
+	          for(int i=0; i<cars.size(); i++){
+	              if(cars.get(i).getCarid()== car.getCarid()) {
+	                       return "Already exists"; }   
+	      }
+	 }
+       cars.add(car);
+	 return "Start Practicing";
+	}
+	
+	public int getWinner(int trackLength,Car car) {
+
+	    boolean ans = cars.isEmpty();
+	    int max = cars.get(0).getCarid();
+	    int time;
+	    int id=cars.get(0).getCarid();
+
+	if(ans == true) {
+	      return -1;
+	}
+	else{
+		
+		for(int i=1; i<cars.size();i++) {
+			int s= cars.get(i).getSpeed();
+			time = trackLength * s;
+			if(time > max) {
+				max=time;
+				id = cars.get(i).getCarid();
+			}
+		}
+	}
+	return id;
+   }
+}
+
+
+package doselectque;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class CarMain {
+
+	public static void main(String[] args) {
+		Car car = new Car(1,100);
+		Scanner sc = new Scanner(System.in);
+	     int n=2;
+		ArrayList<Car> Car1 = new ArrayList<>();
+		for(int i=0;i<n;i++) {
+			Car1.add(new Car(sc.nextInt(),sc.nextInt()));
+		}
+		CarRacing carRacing = new CarRacing(3);	
+		carRacing.setArray(Car1);
+		System.out.println(carRacing.carEntry(car));
+		int s = carRacing.getWinner(3, car);
+        System.out.println(s);
+  sc.close();
+	}
+}

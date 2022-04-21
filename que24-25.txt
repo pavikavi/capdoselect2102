@@ -1,0 +1,153 @@
+//class Specialist:
+
+package doselectque;
+
+import java.math.BigDecimal;
+import java.util.Comparator;
+
+public class Specialist implements Comparable<Specialist> {
+	private String name;
+	private BigDecimal salary;
+	private Specialty specialty;
+
+    public Specialist(String name,BigDecimal salary,Specialty specialty) {
+    	this.name = name;
+    	this.setSalary(salary);
+    	this.specialty = specialty;
+    }
+    
+    public void setName(String name) {this.name = name;}
+    
+    public String getName(){ return name;}
+      
+    public BigDecimal getSalary() { return salary; }
+
+	public void setSalary(BigDecimal salary) { this.salary = salary; }
+	
+	public Specialty getSpecialty() { return specialty; }
+	  
+	public void setSpecialty(Specialty specialty) { this.specialty = specialty; }
+	 
+    public String toString(){
+        return "\n"+"Specialist "+"name =" +this.name+","+"salary ="+this.getSalary() +","+"specialty="+this.getSpecialty();
+      }
+
+	
+	public int compareTo(Specialist o) { return name.compareTo(o.name); } 
+			 
+}
+class SortBySalary implements Comparator<Specialist>{
+    public int compare(Specialist a, Specialist b) {
+        return a. getSalary().compareTo(b. getSalary());
+    }
+}
+
+
+
+//enum Specialty:
+
+package doselectque;
+
+public enum Specialty {
+	ENGINEER, MANAGER, DEVOPS
+}
+
+//class Implementation:
+
+
+package doselectque;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+public class Implementation {
+
+
+public List<Specialist>  filterBySpecialty(List<Specialist>  s , Specialty sp) {
+	List<Specialist>  l = new ArrayList<>();
+	
+	
+	for(int i=0;i<s.size();i++) {
+		
+		if(s.get(i).getSpecialty()== sp)
+	          l.add(s.get(i));  
+    }
+	return l;
+	
+}
+	
+	  public List<Specialist> sortSpecialistsByNameAsc(List<Specialist> s) {
+		  Collections.sort(s); 
+		 //s = s.stream().sorted().collect(Collectors.toList());
+	     return s; 
+	  } 
+	  
+ //que24
+	  
+	  public List<Specialist> findWithMaxSalary( List<Specialist> s){
+		  List<Specialist> l = new ArrayList<>();
+		  Collections.sort(s,new SortBySalary());		  
+		  l.add(s.get(s.size()-1));
+		  return l ; 
+	  }
+	  
+	  
+	public boolean matchAllEngineers( List<Specialist> s, Specialty sp){
+		int count =0;
+	
+		for(int i=0;i<s.size();i++) {
+			if(s.get(i).getSpecialty()== sp) {
+				count++;
+			}
+			if(count == s.size())
+			{return true;}
+		}
+		return false;		
+	}
+}
+
+//class SpecialistMain:
+
+
+package doselectque;
+
+import java.math.BigDecimal;
+//import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class SpecialistMain {
+	
+    public static void main(String args[] ) {
+	
+    	List<Specialist> list = Arrays.asList(
+    			 new Specialist("Ivan Ivanov", new BigDecimal(5000), Specialty.ENGINEER),
+    			 new Specialist("Sergey Sergeev", new BigDecimal(3000), Specialty.DEVOPS),
+    			 new Specialist("Petr Petrov", new BigDecimal(10000), Specialty.MANAGER));
+	
+      Specialty sp = Specialty.ENGINEER ;
+      Implementation imp = new Implementation() ; 
+    
+      List<Specialist>  out =  imp.filterBySpecialty(list,sp);	
+      System.out.println(out);
+      
+      System.out.println("---------------------------------------------------------------------------");
+      
+      List<Specialist>  out1 =  imp.sortSpecialistsByNameAsc(list);
+      System.out.println(out1);
+      
+      System.out.println("---------------------------------------------------------------------------");
+      
+      List<Specialist>  out2 =  imp.findWithMaxSalary(list);
+      System.out.println(out2);
+      
+      System.out.println("---------------------------------------------------------------------------");
+    
+      boolean  out3 =  imp.matchAllEngineers(list, sp);
+      System.out.println(out3);
+    }
+}
+
+

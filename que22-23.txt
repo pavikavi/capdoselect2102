@@ -1,0 +1,97 @@
+Question no:22
+
+public class MainDance {
+    public static void main(String[]args){
+        Dance obj=new Dance();
+        System.out.println(obj.newStep("Step1",9));
+        System.out.println(obj.findStep("Step"));
+        System.out.println(obj.newStep("Step1",10));
+        System.out.println(obj.findStep("Step1"));
+    }
+}
+import java.util.HashMap;
+
+public class Dance {
+    HashMap<String,Integer> steps=new HashMap<>();
+    public String newStep(String name,int ways){
+        if(steps.isEmpty()){
+            steps.put(name,ways);
+            return "New Step";
+        }
+        if(steps.containsKey(name)){
+            steps.put(name,ways);
+            return "Stepped in";
+        }
+        return "";
+    }
+    public int findStep(String name){
+        if(steps.containsKey(name)) {
+            return steps.get(name);
+        }else{
+            return 0;
+        }
+    }
+}
+Output:  
+
+New Step
+0
+Stepped in
+10
+
+--------------------------
+Question no:23
+
+public class Mainracer {
+    public static void main(String[]args){
+        Racer obj=new Racer("jjccrrj",10,20,30);
+        System.out.println(obj.goodAt());
+        System.out.println(obj.finalScore());
+    }
+}
+
+public class Racer {
+    String action;
+    int runScore;
+    int jumpScore;
+    int crawlScore;
+    public Racer(String action,int runScore,int jumpScore,int crawlScore){
+        this.action=action;
+        this.crawlScore=crawlScore;
+        this.runScore=runScore;
+        this.jumpScore=jumpScore;
+    }
+    public String goodAt(){
+        int count_j=0,count_r=0;
+        for(int i=0;i<action.length();i++){
+            if(action.charAt(i)=='j')
+                count_j++;
+            if(action.charAt(i)=='c')
+                count_r++;
+        }
+        if(count_j==count_r)
+            return "Perfect";
+        else if(count_j>count_r)
+            return "jumper";
+        else
+            return "Crawler";
+    }
+    public int finalScore(){
+        int score;
+        score=runScore+crawlScore+jumpScore;
+        if(goodAt()=="jumper")
+            score+=jumpScore;
+        else if(goodAt()=="Crawler")
+            score+=crawlScore;
+        else
+            score+=runScore;
+        return score;
+    }
+}
+Output: 
+
+jumper
+80
+
+
+--------------------
