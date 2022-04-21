@@ -1,0 +1,104 @@
+Question 52:
+
+
+
+package doselectque;
+
+public class Box {
+    private int id;
+    private int volume;
+ 
+    public Box(int id,int volume) {
+    	this.setId(id);
+    	this.setVolume(volume);
+    			
+    }
+
+	public int getVolume() { return volume; }
+
+	public void setVolume(int volume) { this.volume = volume; }
+
+	public int getId() { return id; }
+
+	public void setId(int id) { this.id = id; }
+}
+
+
+
+package doselectque;
+
+import java.util.ArrayList;
+
+public class ContainerBox {
+	int n=2;
+	
+    ArrayList<Box> boxes = new ArrayList<>();
+	
+    public void addBox(Box box) {
+    	boxes.add(box);
+    	//System.out.println(boxes.get(0).getId());
+    }
+    
+    public String addWater(int id, int litr) { 
+    	for(int i=0;i<boxes.size();i++) { 
+    	    if(boxes.get(i).getId() == id && boxes.get(i).getVolume() >= litr)   	    	
+    	     {      	     
+      	    	return "Water filled";}
+    	    else if(boxes.get(i).getId() == id && boxes.get(i).getVolume() <= litr)
+    	     {   
+    	    	return "Box full"; }
+       } 
+    	return "No Box found"; 
+     }
+     public ArrayList<Box> getBoxes(int vol, int com) {
+    	 
+    	 ArrayList<Box> Arr = new ArrayList<>();
+    	 for(int i=0; i < boxes.size(); i++) { 
+    		 if(com == 1) {    		
+    			 if( boxes.get(i).getVolume() < vol) {
+    				 Arr.add(boxes.get(i)); 
+    				 } 
+    		 }
+    		 else if(com == 2) {
+    			 if( boxes.get(i).getVolume() > vol) {
+    				 Arr.add(boxes.get(i));   				
+    					 } 
+    		 }
+    	     if (com != 1 && com != 2) {
+    	            System.out.println("null");
+    	       }
+    	 }
+       return Arr;
+     }      
+
+}
+
+package doselectque;
+
+import java.util.ArrayList;
+
+public class BoxMain {
+
+	public static void main(String[] args) {
+
+		  Box box = new Box(1,100);
+	        Box box1 = new Box(2,50);
+
+	        ContainerBox containerBox = new ContainerBox();
+	        containerBox.addBox(box);
+	        containerBox.addBox(box1);
+
+	        String s = containerBox.addWater(1,200);
+	        System.out.println(s);
+
+	        ArrayList<Box> s1 = containerBox.getBoxes(200,1);
+	        for(int i=0;i<s1.size();i++) {
+	            System.out.println("["+s1.get(i).getId() + " " + s1.get(i).getVolume()+"]");
+	        }
+	    }
+}
+
+Output:
+Box full
+[1 100]
+[2 50]

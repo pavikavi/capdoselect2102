@@ -1,0 +1,72 @@
+package doselectque;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DishMain {
+	public static void main(String[]args){
+        DishTest dt=new DishTest();
+        List<Dish> list=new ArrayList<Dish>();
+        list.add(new Dish("Gazpacho"));
+        list.add(new Dish("Jamon"));
+        list.add(new Dish("Tortilla"));
+        list.add(new Dish("churros"));
+        System.out.println(dt.addYummyToName(list));
+        System.out.println(dt.count(list,"Tortilla"));
+    }
+}
+
+
+package doselectque;
+
+public class Dish {
+	 String dishname;
+	 Dish(String dishname){
+	        this.dishname=dishname }
+
+	    public String getDishname() {
+	        return dishname;
+	    }
+
+	    public void setDishname(String dishname) {
+	        this.dishname = dishname;
+	    }
+
+	    @Override
+	    public String toString() {
+	        return "Dish{" + "dishname='"+ "Yummy: " + this.dishname + '\'' + '}'+'\n';
+	    }
+}
+
+
+
+package doselectque;
+
+import java.util.List;
+
+public class DishTest {
+	Dish dish;
+    public List<Dish> addYummyToName(List<Dish> list){
+        list.add(dish);
+        return list;
+    }
+    public long count(List<Dish> list,String s){
+
+        long count=0;
+        for(int i=0;i< list.size()-1;i++) {
+            if(list.get(i).getDishname()== s){
+                count++;
+            }
+        }
+        return count;
+   }
+}
+
+output:
+
+[Dish{dishname='Yummy: Gazpacho'}
+, Dish{dishname='Yummy: Jamon'}
+, Dish{dishname='Yummy: Tortilla'}
+, Dish{dishname='Yummy: churros'}
+, null]
+1

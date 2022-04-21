@@ -1,0 +1,122 @@
+
+
+
+package doselectque;
+
+public class User {
+    private String name;
+    private String city;
+    private String state;
+    private String pincode;
+    private String dob;
+
+
+
+    public User(String name, String city, String state, String pincode, String dob){
+        this.city=city;
+        this.dob=dob;
+        this.name=name;
+        this.pincode=pincode;
+        this.state=state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+
+
+package doselectque;
+
+public class EmployeeID {
+	public User user;
+    public EmployeeID(User user){
+        this.user=user;
+    }
+    public String generateId(){
+        String password= user.getName().substring(0,3)+Character.toString(user.getCity().charAt(0))+Character.toString(user.getState().charAt(0));
+   
+        if(pincodeValidator()==false){
+            return "NA";
+        }else if(pincodeValidator() && dobValidator()){
+            password+= user.getDob().substring(0,2);
+            return password;
+        }else{
+            return password;
+        }
+    }
+    public boolean pincodeValidator(){
+        if(user.getPincode().length()==6 && user.getPincode().matches("[0-9]+")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean dobValidator(){
+        String[] s=user.getDob().split("/");
+      
+        int count=0;
+        for(int i=0;i<s.length;i++){
+            if(s[i].matches("[0-9]+")){
+                count++;
+            }
+        }
+        if(user.getDob().length()==10 && s.length==3 && (count==s.length)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+
+
+
+package doselectque;
+
+public class CheckMain {
+	public static void main(String[]args){
+        User user=new User("doselect","d","delhi","400001","22/04/2002");
+        EmployeeID e1=new EmployeeID(user);
+        System.out.println(e1.generateId());
+    }
+}
+
+Output:
+
+dosdd22
